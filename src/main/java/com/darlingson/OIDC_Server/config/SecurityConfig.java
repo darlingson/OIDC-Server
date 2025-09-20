@@ -20,21 +20,29 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(
+                        "/auth/**",
                     "/api/clients/register",
                     "/api/scopes/**",
+                    "/oauth/authorize/**",
+                    "/oauth/token",
+                    "/oauth/userinfo",
                     "/swagger-ui/**",
                     "/swagger-ui.html",
                     "/v3/api-docs/**",
                     "/swagger-resources/**",
                     "/webjars/**",
-                    "/error"  // Add error endpoint
+                    "/error"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers(
+                        "/auth/**",
                     "/api/clients/register",
                     "/api/scopes/**",
+                    "/oauth/authorize/**",
+                    "/oauth/token",
+                    "/oauth/userinfo",
                     "/swagger-ui/**",
                     "/swagger-ui.html",
                     "/v3/api-docs/**",

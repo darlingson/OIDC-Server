@@ -6,10 +6,11 @@ import com.darlingson.OIDC_Server.entities.User;
 import com.darlingson.OIDC_Server.repositories.RoleRepository;
 import com.darlingson.OIDC_Server.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.Map;
+
+@RestController
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -25,22 +26,14 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
-
     @PostMapping("/register")
-    public String registerUser(@RequestParam String fullName,
-                              @RequestParam String email,
-                              @RequestParam String password) {
+    public Map<String, Object> registerUser(
+            @RequestParam String fullName,
+            @RequestParam String email,
+            @RequestParam String password) {
+
         if (userRepository.existsByEmail(email)) {
-            return "redirect:/auth/register?error";
+            throw new IllegalArgumentException("Email already exists");
         }
 
         User user = new User();
@@ -48,12 +41,52 @@ public class AuthController {
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
 
-        // Assign USER role by default
         Role userRole = roleRepository.findByName(RoleEnum.USER)
             .orElseThrow(() -> new RuntimeException("Role not found"));
         user.setRole(userRole);
 
-        userRepository.save(user);
-        return "redirect:/auth/login?success";
+        User savedUser = userRepository.save(user);
+
+        return Map.of(
+            "message", "User registered successfully",
+            "user_id", savedUser.getId(),
+            "email", savedUser.getEmail(),
+            "fullName", savedUser.getFullName()
+        );
+    }
+
+    @PostMapping("/login")
+    public Map<String, Object> login(
+            @RequestParam String email,
+            @RequestParam String password) {
+
+        var user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Invalid credentials");
+        }
+
+        return Map.of(
+            "message", "Login successful",
+            "user_id", user.getId(),
+            "email", user.getEmail(),
+            "fullName", user.getFullName(),
+            "role", user.getRole().getName().name()
+        );
+    }
+
+    @GetMapping("/profile")
+    public Map<String, Object> getUserProfile(@RequestParam String email) {
+        var user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return Map.of(
+            "user_id", user.getId(),
+            "email", user.getEmail(),
+            "fullName", user.getFullName(),
+            "role", user.getRole().getName().name(),
+            "created_at", user.getCreatedAt()
+        );
     }
 }
