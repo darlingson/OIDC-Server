@@ -36,7 +36,7 @@ public class ClientRegistrationController {
         client.setClientSecret(passwordEncoder.encode(clientSecret));
         client.setRedirectUris(request.getRedirectUris());
         client.setScopes(request.getScopes());
-        client.setGrantTypes(Set.of("authorization_code", "refresh_token")); // Default grant types
+        client.setGrantTypes(Set.of("authorization_code", "refresh_token"));
 
         clientRepository.save(client);
 

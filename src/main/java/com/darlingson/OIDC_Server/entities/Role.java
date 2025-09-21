@@ -29,7 +29,6 @@ public class Role {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    // Getters and setters
     public Integer getId() {
         return id;
     }
@@ -70,7 +69,6 @@ public class Role {
         this.updatedAt = updatedAt;
     }
 
-    // Optional: toString method for debugging
     @Override
     public String toString() {
         return "Role{" +
@@ -82,7 +80,6 @@ public class Role {
                 '}';
     }
 
-    // Optional: equals and hashCode methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

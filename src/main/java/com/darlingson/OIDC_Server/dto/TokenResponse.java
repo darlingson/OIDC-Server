@@ -18,7 +18,6 @@ public class TokenResponse {
         this.scope = scope;
     }
 
-    // Getters
     public String getAccess_token() { return access_token; }
     public String getToken_type() { return token_type; }
     public long getExpires_in() { return expires_in; }

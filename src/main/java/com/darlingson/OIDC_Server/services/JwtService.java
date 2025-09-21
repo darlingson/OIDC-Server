@@ -28,12 +28,10 @@ public class JwtService {
         claims.put("roles", user.getRole().getName().name());
         claims.put("scope", scope);
 
-        // Use user ID as subject
         return buildToken(claims, user.getId().toString(), jwtExpiration);
     }
 
     public String generateRefreshToken(User user) {
-        // Use user ID as subject for refresh token too
         return buildToken(new HashMap<>(), user.getId().toString(), jwtExpiration * 24 * 7);
     }
 
@@ -70,7 +68,6 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload();
 
-        // Get email from claims
         return claims.get("email", String.class);
     }
 
@@ -83,7 +80,6 @@ public class JwtService {
                 .getPayload()
                 .getSubject();
 
-        // Subject is now the user ID
         return Integer.parseInt(subject);
     }
 

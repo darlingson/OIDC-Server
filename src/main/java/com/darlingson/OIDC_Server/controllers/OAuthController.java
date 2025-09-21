@@ -63,8 +63,6 @@ public class OAuthController {
             @RequestParam String username,
             @RequestParam String password) {
 
-//        ClientApplication client = clientRepository.findByClientId(client_id)
-//            .orElseThrow(() -> new IllegalArgumentException("Invalid client ID"));
         ClientApplication client = clientRepository.findByClientIdWithCollections(client_id)
         .orElseThrow(() -> new IllegalArgumentException("Invalid client ID"));
 
@@ -87,7 +85,6 @@ public class OAuthController {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
-        // Validate and filter scopes - only allow scopes that the client is registered for
         Set<String> requestedScopes = Arrays.stream(scope.split(" ")).collect(Collectors.toSet());
         Set<String> clientScopes = client.getScopes();
 
@@ -95,7 +92,6 @@ public class OAuthController {
             throw new IllegalArgumentException("Invalid scopes requested");
         }
 
-        // Store only the granted scopes (which are all requested scopes since we validated)
         String grantedScopes = String.join(" ", requestedScopes);
 
         String authorizationCode = UUID.randomUUID().toString().replace("-", "");
@@ -114,12 +110,7 @@ public class OAuthController {
         response.put("code", authorizationCode);
         response.put("redirect_uri", redirect_uri);
         response.put("scope", grantedScopes);
-//        return Map.of(
-//            "code", authorizationCode,
-//            "state", state,
-//            "redirect_uri", redirect_uri,
-//            "scope", grantedScopes
-//        );
+
         if (state != null) {
             response.put("state", state);
         }
@@ -164,7 +155,6 @@ public class OAuthController {
         authCode.setUsed(true);
         authorizationCodeRepository.save(authCode);
 
-        // Generate real JWT tokens with the granted scopes
         User user = authCode.getUser();
         String accessToken = jwtService.generateAccessToken(user, authCode.getScope());
         String refreshToken = jwtService.generateRefreshToken(user);
@@ -196,16 +186,14 @@ public class OAuthController {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        // Extract granted scopes from the token
         Set<String> grantedScopes = jwtService.extractScopes(accessToken);
 
-        // Build userinfo response based on granted scopes
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("sub", user.getId().toString());
 
         if (grantedScopes.contains("email")) {
             userInfo.put("email", user.getEmail());
-            userInfo.put("email_verified", true); // You should implement email verification
+            userInfo.put("email_verified", true);
         }
 
         if (grantedScopes.contains("profile")) {
@@ -215,7 +203,6 @@ public class OAuthController {
             userInfo.put("family_name", user.getFullName());
         }
 
-        // Add other scope-based claims as needed
         if (grantedScopes.contains("roles")) {
             userInfo.put("roles", user.getRole().getName().name());
         }

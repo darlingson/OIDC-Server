@@ -50,7 +50,6 @@ public class ClientApplication {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    // Getters and setters
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
     public String getClientName() { return clientName; }
