@@ -24,4 +24,8 @@ public class ApiController {
     public String superAdminSettings() {
         return "Super Admin settings - only for SUPER_ADMIN users";
     }
+    @GetMapping("/api/test/endpoint")
+    public String testEndpoint(){
+        return "Test endpoint reached successfully";
+    }
 }
