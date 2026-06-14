@@ -9,38 +9,221 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as Sign_inRouteImport } from './routes/sign_in'
+import { Route as Permissions_requestRouteImport } from './routes/permissions_request'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardDocumentationRouteImport } from './routes/dashboard/documentation'
+import { Route as DashboardAudit_logsRouteImport } from './routes/dashboard/audit_logs'
+import { Route as DashboardApi_keysRouteImport } from './routes/dashboard/api_keys'
+import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard/analytics'
+import { Route as DashboardApplicationsIndexRouteImport } from './routes/dashboard/applications/index'
+import { Route as DevAuthRegisterRouteImport } from './routes/dev/auth/register'
+import { Route as DevAuthLoginRouteImport } from './routes/dev/auth/login'
+import { Route as DashboardApplicationsAdd_newRouteImport } from './routes/dashboard/applications/add_new'
 
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Sign_inRoute = Sign_inRouteImport.update({
+  id: '/sign_in',
+  path: '/sign_in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Permissions_requestRoute = Permissions_requestRouteImport.update({
+  id: '/permissions_request',
+  path: '/permissions_request',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardDocumentationRoute = DashboardDocumentationRouteImport.update({
+  id: '/dashboard/documentation',
+  path: '/dashboard/documentation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAudit_logsRoute = DashboardAudit_logsRouteImport.update({
+  id: '/dashboard/audit_logs',
+  path: '/dashboard/audit_logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardApi_keysRoute = DashboardApi_keysRouteImport.update({
+  id: '/dashboard/api_keys',
+  path: '/dashboard/api_keys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
+  id: '/dashboard/analytics',
+  path: '/dashboard/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardApplicationsIndexRoute =
+  DashboardApplicationsIndexRouteImport.update({
+    id: '/dashboard/applications/',
+    path: '/dashboard/applications/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DevAuthRegisterRoute = DevAuthRegisterRouteImport.update({
+  id: '/dev/auth/register',
+  path: '/dev/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevAuthLoginRoute = DevAuthLoginRouteImport.update({
+  id: '/dev/auth/login',
+  path: '/dev/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardApplicationsAdd_newRoute =
+  DashboardApplicationsAdd_newRouteImport.update({
+    id: '/dashboard/applications/add_new',
+    path: '/dashboard/applications/add_new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/permissions_request': typeof Permissions_requestRoute
+  '/sign_in': typeof Sign_inRoute
+  '/support': typeof SupportRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/api_keys': typeof DashboardApi_keysRoute
+  '/dashboard/audit_logs': typeof DashboardAudit_logsRoute
+  '/dashboard/documentation': typeof DashboardDocumentationRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/applications/add_new': typeof DashboardApplicationsAdd_newRoute
+  '/dev/auth/login': typeof DevAuthLoginRoute
+  '/dev/auth/register': typeof DevAuthRegisterRoute
+  '/dashboard/applications/': typeof DashboardApplicationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/permissions_request': typeof Permissions_requestRoute
+  '/sign_in': typeof Sign_inRoute
+  '/support': typeof SupportRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/api_keys': typeof DashboardApi_keysRoute
+  '/dashboard/audit_logs': typeof DashboardAudit_logsRoute
+  '/dashboard/documentation': typeof DashboardDocumentationRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/applications/add_new': typeof DashboardApplicationsAdd_newRoute
+  '/dev/auth/login': typeof DevAuthLoginRoute
+  '/dev/auth/register': typeof DevAuthRegisterRoute
+  '/dashboard/applications': typeof DashboardApplicationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/permissions_request': typeof Permissions_requestRoute
+  '/sign_in': typeof Sign_inRoute
+  '/support': typeof SupportRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/api_keys': typeof DashboardApi_keysRoute
+  '/dashboard/audit_logs': typeof DashboardAudit_logsRoute
+  '/dashboard/documentation': typeof DashboardDocumentationRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/applications/add_new': typeof DashboardApplicationsAdd_newRoute
+  '/dev/auth/login': typeof DevAuthLoginRoute
+  '/dev/auth/register': typeof DevAuthRegisterRoute
+  '/dashboard/applications/': typeof DashboardApplicationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/permissions_request'
+    | '/sign_in'
+    | '/support'
+    | '/dashboard/analytics'
+    | '/dashboard/api_keys'
+    | '/dashboard/audit_logs'
+    | '/dashboard/documentation'
+    | '/dashboard/'
+    | '/dashboard/applications/add_new'
+    | '/dev/auth/login'
+    | '/dev/auth/register'
+    | '/dashboard/applications/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/permissions_request'
+    | '/sign_in'
+    | '/support'
+    | '/dashboard/analytics'
+    | '/dashboard/api_keys'
+    | '/dashboard/audit_logs'
+    | '/dashboard/documentation'
+    | '/dashboard'
+    | '/dashboard/applications/add_new'
+    | '/dev/auth/login'
+    | '/dev/auth/register'
+    | '/dashboard/applications'
+  id:
+    | '__root__'
+    | '/'
+    | '/permissions_request'
+    | '/sign_in'
+    | '/support'
+    | '/dashboard/analytics'
+    | '/dashboard/api_keys'
+    | '/dashboard/audit_logs'
+    | '/dashboard/documentation'
+    | '/dashboard/'
+    | '/dashboard/applications/add_new'
+    | '/dev/auth/login'
+    | '/dev/auth/register'
+    | '/dashboard/applications/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Permissions_requestRoute: typeof Permissions_requestRoute
+  Sign_inRoute: typeof Sign_inRoute
+  SupportRoute: typeof SupportRoute
+  DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
+  DashboardApi_keysRoute: typeof DashboardApi_keysRoute
+  DashboardAudit_logsRoute: typeof DashboardAudit_logsRoute
+  DashboardDocumentationRoute: typeof DashboardDocumentationRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardApplicationsAdd_newRoute: typeof DashboardApplicationsAdd_newRoute
+  DevAuthLoginRoute: typeof DevAuthLoginRoute
+  DevAuthRegisterRoute: typeof DevAuthRegisterRoute
+  DashboardApplicationsIndexRoute: typeof DashboardApplicationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign_in': {
+      id: '/sign_in'
+      path: '/sign_in'
+      fullPath: '/sign_in'
+      preLoaderRoute: typeof Sign_inRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/permissions_request': {
+      id: '/permissions_request'
+      path: '/permissions_request'
+      fullPath: '/permissions_request'
+      preLoaderRoute: typeof Permissions_requestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +231,86 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/documentation': {
+      id: '/dashboard/documentation'
+      path: '/dashboard/documentation'
+      fullPath: '/dashboard/documentation'
+      preLoaderRoute: typeof DashboardDocumentationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/audit_logs': {
+      id: '/dashboard/audit_logs'
+      path: '/dashboard/audit_logs'
+      fullPath: '/dashboard/audit_logs'
+      preLoaderRoute: typeof DashboardAudit_logsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/api_keys': {
+      id: '/dashboard/api_keys'
+      path: '/dashboard/api_keys'
+      fullPath: '/dashboard/api_keys'
+      preLoaderRoute: typeof DashboardApi_keysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/analytics': {
+      id: '/dashboard/analytics'
+      path: '/dashboard/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof DashboardAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/applications/': {
+      id: '/dashboard/applications/'
+      path: '/dashboard/applications'
+      fullPath: '/dashboard/applications/'
+      preLoaderRoute: typeof DashboardApplicationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dev/auth/register': {
+      id: '/dev/auth/register'
+      path: '/dev/auth/register'
+      fullPath: '/dev/auth/register'
+      preLoaderRoute: typeof DevAuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dev/auth/login': {
+      id: '/dev/auth/login'
+      path: '/dev/auth/login'
+      fullPath: '/dev/auth/login'
+      preLoaderRoute: typeof DevAuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/applications/add_new': {
+      id: '/dashboard/applications/add_new'
+      path: '/dashboard/applications/add_new'
+      fullPath: '/dashboard/applications/add_new'
+      preLoaderRoute: typeof DashboardApplicationsAdd_newRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Permissions_requestRoute: Permissions_requestRoute,
+  Sign_inRoute: Sign_inRoute,
+  SupportRoute: SupportRoute,
+  DashboardAnalyticsRoute: DashboardAnalyticsRoute,
+  DashboardApi_keysRoute: DashboardApi_keysRoute,
+  DashboardAudit_logsRoute: DashboardAudit_logsRoute,
+  DashboardDocumentationRoute: DashboardDocumentationRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardApplicationsAdd_newRoute: DashboardApplicationsAdd_newRoute,
+  DevAuthLoginRoute: DevAuthLoginRoute,
+  DevAuthRegisterRoute: DevAuthRegisterRoute,
+  DashboardApplicationsIndexRoute: DashboardApplicationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
