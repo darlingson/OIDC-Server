@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as Sign_upRouteImport } from './routes/sign_up'
 import { Route as Sign_inRouteImport } from './routes/sign_in'
 import { Route as Permissions_requestRouteImport } from './routes/permissions_request'
 import { Route as IndexRouteImport } from './routes/index'
@@ -26,6 +27,11 @@ import { Route as DashboardApplicationsAdd_newRouteImport } from './routes/dashb
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Sign_upRoute = Sign_upRouteImport.update({
+  id: '/sign_up',
+  path: '/sign_up',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Sign_inRoute = Sign_inRouteImport.update({
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/permissions_request': typeof Permissions_requestRoute
   '/sign_in': typeof Sign_inRoute
+  '/sign_up': typeof Sign_upRoute
   '/support': typeof SupportRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/api_keys': typeof DashboardApi_keysRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/permissions_request': typeof Permissions_requestRoute
   '/sign_in': typeof Sign_inRoute
+  '/sign_up': typeof Sign_upRoute
   '/support': typeof SupportRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/api_keys': typeof DashboardApi_keysRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/permissions_request': typeof Permissions_requestRoute
   '/sign_in': typeof Sign_inRoute
+  '/sign_up': typeof Sign_upRoute
   '/support': typeof SupportRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/api_keys': typeof DashboardApi_keysRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/'
     | '/permissions_request'
     | '/sign_in'
+    | '/sign_up'
     | '/support'
     | '/dashboard/analytics'
     | '/dashboard/api_keys'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/'
     | '/permissions_request'
     | '/sign_in'
+    | '/sign_up'
     | '/support'
     | '/dashboard/analytics'
     | '/dashboard/api_keys'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/'
     | '/permissions_request'
     | '/sign_in'
+    | '/sign_up'
     | '/support'
     | '/dashboard/analytics'
     | '/dashboard/api_keys'
@@ -189,6 +201,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   Permissions_requestRoute: typeof Permissions_requestRoute
   Sign_inRoute: typeof Sign_inRoute
+  Sign_upRoute: typeof Sign_upRoute
   SupportRoute: typeof SupportRoute
   DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
   DashboardApi_keysRoute: typeof DashboardApi_keysRoute
@@ -208,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign_up': {
+      id: '/sign_up'
+      path: '/sign_up'
+      fullPath: '/sign_up'
+      preLoaderRoute: typeof Sign_upRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sign_in': {
@@ -301,6 +321,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Permissions_requestRoute: Permissions_requestRoute,
   Sign_inRoute: Sign_inRoute,
+  Sign_upRoute: Sign_upRoute,
   SupportRoute: SupportRoute,
   DashboardAnalyticsRoute: DashboardAnalyticsRoute,
   DashboardApi_keysRoute: DashboardApi_keysRoute,
